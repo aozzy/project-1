@@ -5,11 +5,11 @@ const cells = []
 let snakeDirection = ''
 const displayScore = document.querySelector('#score')
 let score = 0
-let speed = 1
+let speed = 0.9
 let aSnake = [2, 1, 0]
 let food = 0
 let intervalId = 0
-let intervalTime = 0
+let intervalTime = 1000
 let currentPosition = 0
 let randomPosition
 let foodAmount = 0
@@ -61,59 +61,59 @@ document.addEventListener('keyup', (event) => {
 
 })
 
+function snake() {
+  intervalId = setInterval(() => {
 
-intervalId = setInterval(() => {
-
-  gameOver()
-  randomFood()
-  
-
-
-  if (snakeDirection === 'ArrowRight' && !(aSnake[0] % width === width - 1)) {
-
-    aSnake.forEach(index => cells[index].classList.remove('snake'))
-    aSnake.pop()
-    console.log(aSnake[0])
-    aSnake.unshift(aSnake[0] += 1)
-    eatFood()
-    console.log(aSnake[0])
-    
-    aSnake.forEach(index => cells[index].classList.add('snake'))
-  } else if (snakeDirection === 'ArrowLeft' && !(aSnake[0] % width === 0)) {
-
-    aSnake.forEach(index => cells[index].classList.remove('snake'))
-    aSnake.pop()
-    console.log(aSnake[0])
-    aSnake.unshift(aSnake[0] -= 1)
-    console.log(aSnake[0])
-    eatFood()
-    aSnake.forEach(index => cells[index].classList.add('snake'))
-
-
-  } else if (snakeDirection === 'ArrowDown' && !(aSnake[0] + width >= width * width)) {
-
-    aSnake.forEach(index => cells[index].classList.remove('snake'))
-    aSnake.pop()
-    console.log(aSnake[0])
-    aSnake.unshift(aSnake[0] += width)
-    console.log(aSnake[0])
-    eatFood()
-    aSnake.forEach(index => cells[index].classList.add('snake'))
-
-  } else if (snakeDirection === 'ArrowUp' && !(aSnake[0] - width <= 0)) {
-
-    aSnake.forEach(index => cells[index].classList.remove('snake'))
-    aSnake.pop()
-    aSnake.unshift(aSnake[0] -= width)
-    eatFood()
-    aSnake.forEach(index => cells[index].classList.add('snake'))
-  }
-
-
-}, 1000)
+    gameOver()
+    randomFood()
 
 
 
+    if (snakeDirection === 'ArrowRight' && !(aSnake[0] % width === width - 1)) {
+
+      aSnake.forEach(index => cells[index].classList.remove('snake'))
+      aSnake.pop()
+      console.log(aSnake[0])
+      aSnake.unshift(aSnake[0] += 1)
+      eatFood()
+      console.log(aSnake[0])
+
+      aSnake.forEach(index => cells[index].classList.add('snake'))
+    } else if (snakeDirection === 'ArrowLeft' && !(aSnake[0] % width === 0)) {
+
+      aSnake.forEach(index => cells[index].classList.remove('snake'))
+      aSnake.pop()
+      console.log(aSnake[0])
+      aSnake.unshift(aSnake[0] -= 1)
+      console.log(aSnake[0])
+      eatFood()
+      aSnake.forEach(index => cells[index].classList.add('snake'))
+
+
+    } else if (snakeDirection === 'ArrowDown' && !(aSnake[0] + width >= width * width)) {
+
+      aSnake.forEach(index => cells[index].classList.remove('snake'))
+      aSnake.pop()
+      console.log(aSnake[0])
+      aSnake.unshift(aSnake[0] += width)
+      console.log(aSnake[0])
+      eatFood()
+      aSnake.forEach(index => cells[index].classList.add('snake'))
+
+    } else if (snakeDirection === 'ArrowUp' && !(aSnake[0] - width <= 0)) {
+
+      aSnake.forEach(index => cells[index].classList.remove('snake'))
+      aSnake.pop()
+      aSnake.unshift(aSnake[0] -= width)
+      eatFood()
+      aSnake.forEach(index => cells[index].classList.add('snake'))
+    }
+
+
+  }, intervalTime)
+
+}
+ snake()
 
 function gameOver() {
 
@@ -177,41 +177,15 @@ function eatFood() {
   console.log(cells[aSnake[0]])
   if (cells[aSnake[0]].classList.contains('food')) {
     cells[aSnake[0]].classList.remove('food')
-    
+
     aSnake.push(aSnake[0])
-    score ++
-    foodAmount --
+    score++
+    foodAmount--
+    clearInterval(intervalId)
+    intervalTime = intervalTime * speed
+    snake()
 
 
-    // if (snakeDirection === 'ArrowRight') {
-    //   cells[aSnake[0]].classList.remove('food')
-    //   console.log(aSnake[0])
-    //   aSnake.push(aSnake[aSnake.length - 1] += 1)
-    //   console.log(aSnake[0])
-    //   score++
-    //   foodAmount--
-    // } else if (snakeDirection === 'ArrowLeft') {
-    //   cells[aSnake[0]].classList.remove('food')
-    //   console.log(aSnake[0])
-    //   aSnake.push(aSnake[aSnake.length - 1] -= 1)
-    //   console.log(aSnake[0])
-    //   score++
-    //   foodAmount--
-    // } else if (snakeDirection === 'ArrowDown') {
-    //   cells[aSnake[0]].classList.remove('food')
-    //   console.log(aSnake[0])
-    //   aSnake.push(aSnake[aSnake.length - 1] += width)
-    //   console.log(aSnake[0])
-    //   score++
-    //   foodAmount--
-    // } else if (snakeDirection === 'ArrowUp') {
-    //   cells[aSnake[0]].classList.remove('food')
-    //   console.log(aSnake[0])
-    //   aSnake.push(aSnake[aSnake.length - 1] -= width)
-    //   console.log(aSnake[0])
-    //   score++
-    //   foodAmount--
-    // }
 
   }
 
