@@ -20,17 +20,17 @@ body {
   flex-wrap: wrap;
   border-bottom: none;
 }
-
 .cell {
-  border: 1px solid black;
+  
   font-size: 25px;
+  background-color: #6eae00;
+}
+
+.food {
+  background-color: #f7ef5e;
 }
 
 .snake {
   background-color: black;
 }
 
-
-.food {
-  background-color: yellow;
-}
