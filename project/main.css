@@ -8,7 +8,14 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0
+  margin: 0;
+  background-color: #cd843f;
+  font-family: 'VT323', monospace;
+  
+}
+
+h1 {
+  font-size: 100px;
 }
 
 .grid {
@@ -31,6 +38,15 @@ body {
 }
 
 .snake {
-  background-color: black;
+  background-color: #37432d;
+}
+
+.btn {
+ background-color: #a62b17;
+ width: 100px;
+ margin-top: 50px;
+ height: 50px;
+ color: #d7d4c1;
+ font-family: 'VT323', monospace;
 }
 

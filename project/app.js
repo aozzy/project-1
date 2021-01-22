@@ -1,11 +1,12 @@
 const grid = document.querySelector('.grid')
 const start = document.querySelector('#start')
+const restart = document.querySelector('#restart')
 const width = 10
 const cells = []
 let snakeDirection = ''
 const displayScore = document.querySelector('#score')
 let score = 0
-let speed = 0.9
+let speed = 0.8
 let aSnake = [2, 1, 0]
 let food = 0
 let intervalId = 0
@@ -151,26 +152,31 @@ function gameOver() {
 
 
 
-    alert('Game over')
-    displayScore.innerHTML = score
+    alert('Game over your score is ' + score )
     clearInterval(intervalId)
+    //displayScore.innerHTML = score
+    aSnake.forEach(index => cells[index].classList.remove('snake'))
+    cells.forEach(index => cells[index].classList.remove('food'))
   }
 }
 
 //(aSnake.indexOf(aSnake[0]) === aSnake.indexOf(aSnake[0], 1)))
 
 function gameStart() {
-
-  aSnake.forEach(index => cells[index].classList.remove('snake'))
-  cells[food].classList.remove('food')
-  clearInterval(intervalId)
+  const grid = document.querySelector('.grid')
+  randomFood()
+  setInterval(intervalId)
+  //snake()
+  
+  
+  
+  
   score = 0
   snakeDirection = ''
-  displayScore.innerHTML = score
-  //currentPosition = 0
+  //displayScore.innerHTML = score
+  
   aSnake.forEach(index => cells[index].classList.add('snake'))
-  setInterval(intervalId)
-  randomFood()
+  
 }
 
 start.addEventListener('click', gameStart)
@@ -210,6 +216,10 @@ function eatFood() {
   }
 }
 
+
+function reset(){
+  location.href = ''
+}
 
 
 
