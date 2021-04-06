@@ -11,7 +11,6 @@ let aSnake = [2, 1, 0]
 let food = 0
 let intervalId = 0
 let intervalTime = 1000
-let currentPosition = 0
 let randomPosition
 let foodAmount = 0
 
@@ -26,9 +25,9 @@ for (let index = 0; index < width ** 2; index++) {
   // ? Number each cell by its index.
 
   cell.id = index
-  //cell.innerHTML = index
+  
 
-  // ? Set the width and height of my cells
+  // Set the width and height of my cells
   cell.style.width = `${100 / width}%`
   cell.style.width = `${100 / width}%`
   
@@ -60,75 +59,75 @@ function snake() {
 
     gameOver()
     randomFood()
-    //console.log(aSnake)
-    //console.log(aSnake.indexOf(aSnake[0], 2))
-
-
+    
     if (snakeDirection === 'ArrowRight' && !(aSnake[0] % width === width - 1)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-      console.log(cells[aSnake[0]])   
+        
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-
+        console.log( 'pop')
       } else {
-        console.log('food eaten')
+        
         eatFood()
       }
-      //console.log(aSnake[0])
+      
       aSnake.unshift(aSnake[0] + 1)
-      // console.log(aSnake[0])
-
+      console.log( aSnake[0])
+      console.log( 'shift')
       aSnake.forEach(index => cells[index].classList.add('snake'))
     } else if (snakeDirection === 'ArrowLeft' && !(aSnake[0] % width === 0)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-      console.log(cells[aSnake[0]])   
+       
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-
+        console.log( 'pop')
       } else {
-        console.log('food eaten')
+        
         eatFood()
       }
 
       
       aSnake.unshift(aSnake[0] - 1)
-      
-
+      console.log( aSnake[0])
+      console.log( 'shift')
       aSnake.forEach(index => cells[index].classList.add('snake'))
 
 
     } else if (snakeDirection === 'ArrowDown' && !(aSnake[0] + width >= width * width)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-      console.log(cells[aSnake[0]])   
+        
 
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-
+        console.log( 'pop')
 
       } else {
-        console.log('food eaten')
+        
         eatFood()
       }
-      //console.log(aSnake[0])
+      
       aSnake.unshift(aSnake[0] + width)
-      // console.log(aSnake[0])
+      console.log( aSnake[0])
+      console.log( 'shift')
       aSnake.forEach(index => cells[index].classList.add('snake'))
 
     } else if (snakeDirection === 'ArrowUp' && !(aSnake[0] + 1 - width <= 0)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-      console.log(cells[aSnake[0]])      
+           
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-        
+        console.log( 'pop')
       } else {
-        console.log('food eaten')
+        
         eatFood()
       }
       aSnake.unshift(aSnake[0] - width)
+      console.log( aSnake[0])
+      console.log( 'shift')
       aSnake.forEach(index => cells[index].classList.add('snake'))
     }
 
@@ -136,7 +135,7 @@ function snake() {
   }, intervalTime)
 
 }
-snake()
+
 
 function gameOver() {
 
@@ -154,26 +153,27 @@ function gameOver() {
 
     alert('Game over your score is ' + score )
     clearInterval(intervalId)
-    //displayScore.innerHTML = score
+    
     aSnake.forEach(index => cells[index].classList.remove('snake'))
-    cells.forEach(index => cells[index].classList.remove('food'))
+    cells[food].classList.remove('food')
   }
 }
 
-//(aSnake.indexOf(aSnake[0]) === aSnake.indexOf(aSnake[0], 1)))
+
 
 function gameStart() {
   const grid = document.querySelector('.grid')
+  snake()
   randomFood()
   setInterval(intervalId)
-  //snake()
+  
   
   
   
   
   score = 0
   snakeDirection = ''
-  //displayScore.innerHTML = score
+  
   
   aSnake.forEach(index => cells[index].classList.add('snake'))
   
@@ -200,11 +200,11 @@ function randomFood() {
 }
 
 function eatFood() {
-  //console.log(cells[aSnake[0]])
+  
   if (cells[aSnake[0]].classList.contains('food')) {
     cells[aSnake[0]].classList.remove('food')
-
-    // aSnake.push(aSnake[0])
+    console.log(aSnake[0])
+    
     score++
     foodAmount--
     clearInterval(intervalId)
@@ -235,9 +235,7 @@ function reset(){
 
 
 
-// while (cells[randomPosition].classList.contains('aSnake')){
-//   cells[randomPosition].classList.add('food')
-// }
+
 
 
 
