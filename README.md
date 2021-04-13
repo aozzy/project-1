@@ -2,6 +2,8 @@
 ![GA Logo](./project/images/GALogo.png)
 ## Overview
 The Snake game is my first project for the GA Software immersive course which was completed on week 4 of the course.
+The app has been deployed on Github and you can find it [here](https://aozzy.github.io/project-1/)
+
 
 ## Requirements
 - Render a game in the browser
@@ -129,6 +131,7 @@ method is then used to add to the snakes head in the direction it is traveling i
       aSnake.forEach(index => cells[index].classList.add('snake'))
     
 ```
+![snake](./project/images/snake1.png)
 
 ### Future Features
 
@@ -136,7 +139,11 @@ method is then used to add to the snakes head in the direction it is traveling i
 - Have a second mode which allows players to go through walls
 - Add buttons for mobile compatability
 
-### Conclusion
+### Bugs
+- The snake reappears in the last known postion after gameover when you press the start button. 
+
+
+### Key Learnings
 
 I didn't get to implement the design style that I had envisoned for the game, this was due to spending to much time on the movement of the snake
 which I don't believe felt as smooth as it could've been, I've learnt the importance of planning during the development phase from the mistakes I made.
