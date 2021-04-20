@@ -105,10 +105,21 @@ with an increased speed and then call the snake function.
 
 # Snake movement
 
-The snake function dictates how the snake moves by defining the snake direction for every available direction the snake could travel. As the snake is stored within an array the function dictates how the array is manipulated in regards to when the snake has eaten food and when it hasn't. I use a setinterval within the function to get the snake moving, for every direction the snake can travel I used an if statement with a guard condition so the snake
+The snake function dictates how the snake moves by defining the snake direction for every available direction the snake could travel. As the snake is stored within an array the function dictates how the array is manipulated in regards to when the snake has eaten food and when it hasn't. 
+
+
+
+I use a setinterval within the function to get the snake moving, for every direction the snake can travel I used an if statement with a guard condition so the snake
 isn't beyond the boundarys of the grid, for each direction the snake can travel I remove the class of snake from every cell on the grid, then I nest another
+
+
+
 If statement stipulating that if the head of the snake isn't in a cell which contains food then the snake should remove the last element in the snake array 
-using the pop method, the following else statement  controls the snakes growth, I call the eat food function here because the preceeding line of code doesn't get executed when the snakes head collides with the food so the last element of the array isn't removed ensuring that the snake grows. The unshift 
+using the pop method, the following else statement  controls the snakes growth, I call the eat food function here because the preceeding line of code doesn't get executed when the snakes head collides with the food so the last element of the array isn't removed ensuring that the snake grows. 
+
+
+
+The unshift 
 method is then used to add to the snakes head in the direction it is traveling in then the classlist of snake is then added back to the cells on the grid.
 
 ```
