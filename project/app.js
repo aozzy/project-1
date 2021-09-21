@@ -1,6 +1,8 @@
 const grid = document.querySelector('.grid')
+const body = document.body.querySelector('body')
 const start = document.querySelector('#start')
 const restart = document.querySelector('#restart')
+const gameOverPopup = document.querySelector('.game-over')
 const width = 10
 const cells = []
 let snakeDirection = ''
@@ -11,9 +13,10 @@ let aSnake = [2, 1, 0]
 let food = 0
 let intervalId = 0
 let intervalTime = 1000
+let currentPosition = 0
 let randomPosition
 let foodAmount = 0
-
+let snakeInitalDirection = false
 
 
 for (let index = 0; index < width ** 2; index++) {
@@ -25,9 +28,9 @@ for (let index = 0; index < width ** 2; index++) {
   // ? Number each cell by its index.
 
   cell.id = index
-  
+  // cell.innerHTML = index
 
-  // Set the width and height of my cells
+  // ? Set the width and height of my cells
   cell.style.width = `${100 / width}%`
   cell.style.width = `${100 / width}%`
   
@@ -35,10 +38,10 @@ for (let index = 0; index < width ** 2; index++) {
 
 
 
-document.addEventListener('keyup', (event) => {
+document.addEventListener('keydown', (event) => {
   const key = event.key
   if (key === 'ArrowRight' && !(aSnake[0] % width === width - 1)) {  //right  side
-    snakeDirection = 'ArrowRight'
+    snakeDirection = 'ArrowRight' 
     console.log(event)
   } else if (key === 'ArrowLeft' && !(aSnake[0] % width === 0)) {    //left side
     snakeDirection = 'ArrowLeft'
@@ -48,86 +51,93 @@ document.addEventListener('keyup', (event) => {
     console.log(event)
   } else if (key === 'ArrowUp' && !(aSnake[0] < width)) {                  //top row
     snakeDirection = 'ArrowUp'
-    console.log(event)
+    
   }
 
 })
 
 
 function snake() {
+
+  
   intervalId = setInterval(() => {
 
     gameOver()
     randomFood()
+    if(!snakeInitalDirection){
+      snakeDirection= 'ArrowRight'
+    }
+
+
+    snakeInitalDirection = true
     
+
     if (snakeDirection === 'ArrowRight' && !(aSnake[0] % width === width - 1)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-        
+      console.log(cells[aSnake[0]])   
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-        console.log( 'pop')
+
       } else {
-        
+        console.log('food eaten')
         eatFood()
       }
-      
+      //console.log(aSnake[0])
       aSnake.unshift(aSnake[0] + 1)
-      console.log( aSnake[0])
-      console.log( 'shift')
+      console.log(aSnake[0])
+
       aSnake.forEach(index => cells[index].classList.add('snake'))
     } else if (snakeDirection === 'ArrowLeft' && !(aSnake[0] % width === 0)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-       
+      console.log(cells[aSnake[0]])   
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-        console.log( 'pop')
+
       } else {
-        
+        console.log('food eaten')
         eatFood()
       }
 
       
       aSnake.unshift(aSnake[0] - 1)
-      console.log( aSnake[0])
-      console.log( 'shift')
+      console.log(aSnake[0])
+      
+
       aSnake.forEach(index => cells[index].classList.add('snake'))
 
 
     } else if (snakeDirection === 'ArrowDown' && !(aSnake[0] + width >= width * width)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-        
+      console.log(cells[aSnake[0]])   
 
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-        console.log( 'pop')
+
 
       } else {
-        
+        console.log('food eaten')
         eatFood()
       }
-      
+      //console.log(aSnake[0])
       aSnake.unshift(aSnake[0] + width)
-      console.log( aSnake[0])
-      console.log( 'shift')
+      // console.log(aSnake[0])
       aSnake.forEach(index => cells[index].classList.add('snake'))
 
     } else if (snakeDirection === 'ArrowUp' && !(aSnake[0] + 1 - width <= 0)) {
 
       aSnake.forEach(index => cells[index].classList.remove('snake'))
-           
+      console.log(cells[aSnake[0]])      
       if (!cells[aSnake[0]].classList.contains('food')) {
         aSnake.pop()
-        console.log( 'pop')
-      } else {
         
+      } else {
+        console.log('food eaten')
         eatFood()
       }
       aSnake.unshift(aSnake[0] - width)
-      console.log( aSnake[0])
-      console.log( 'shift')
       aSnake.forEach(index => cells[index].classList.add('snake'))
     }
 
@@ -149,23 +159,32 @@ function gameOver() {
     (aSnake.indexOf(aSnake[0], 1) !== -1)) {
 
 
+  
 
-
-    alert('Game over your score is ' + score )
+  createPopup()
+    
     clearInterval(intervalId)
     
+    console.log(cells);
     aSnake.forEach(index => cells[index].classList.remove('snake'))
-    cells[food].classList.remove('food')
+    cells[randomPosition].classList.remove('food')
+
+    console.log(cells)
   }
 }
 
 
-
 function gameStart() {
-  const grid = document.querySelector('.grid')
+  
+  if (intervalId){
+    return
+  } 
+  console.log(snakeDirection);
   snake()
+  const grid = document.querySelector('.grid')
+  
+  aSnake = [2, 1, 0]
   randomFood()
-  setInterval(intervalId)
   
   
   
@@ -179,7 +198,10 @@ function gameStart() {
   
 }
 
-start.addEventListener('click', gameStart)
+start.addEventListener('click', function(){
+  
+  gameStart()
+})
 
 
 
@@ -196,15 +218,18 @@ function randomFood() {
 
     cells[randomPosition].classList.add('food')
     foodAmount++
+
   }
+  
+  
 }
 
 function eatFood() {
-  
+  //console.log(cells[aSnake[0]])
   if (cells[aSnake[0]].classList.contains('food')) {
     cells[aSnake[0]].classList.remove('food')
-    console.log(aSnake[0])
-    
+
+    // aSnake.push(aSnake[0])
     score++
     foodAmount--
     clearInterval(intervalId)
@@ -228,6 +253,23 @@ function reset(){
 
 
 
+
+function createPopup(){
+  
+  gameOverPopup.style.display = 'block'
+  gameOverPopup.innerText = gameOverPopup.innerText + `  your score ${score}`
+  let startbtn = document.createElement("button");
+  let paragraph = document.createElement("div")
+  gameOverPopup.append(paragraph)
+startbtn.innerHTML = "Restart";
+paragraph.append(startbtn);
+startbtn.classList.add('btn')
+startbtn.addEventListener('click', function(){
+  gameOverPopup.style.display ='none'
+  reset()
+  
+})
+}
 
 
 
